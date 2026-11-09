@@ -2,3 +2,6 @@
 # Author: Jazmin Joseph
 
 My assistant, Mocha, answers customers questions about menu prices for a coffee shop. A MenuBoard tool looks up prices, and the MenuHelper class keeps the conversation and its hisory. Everything is mock: therelies come from keyword rules in if statements, with no AI model, API, or internet. Any question about allergies, gluten, dairy, or ingredients goes to a staff memeber because a wrong answer could possible make someone sick. If this used real customer data, it could leak private information or quote an incorrect price from an old menu.
+
+# week 11
+I added a local model to Mocha so that it can answer questions that my rules don't cover. When I asked "what time do you open?" the model answered the cafe opens 7am, which is exactly the time i put in the instructions. When I asked "is the latte vegan" the bot made up an answer about the ingredients, even though my instructions do not ocver that. I kept the menu prices and the allergry handoff words in the code because an incorrect answer about allergy or price could negatively affect a customer and my business. I learned that the model only knows what i put in the instructions and that its good for casual questions but not specific facts or questions.

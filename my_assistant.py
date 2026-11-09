@@ -1,14 +1,20 @@
+# my_assistant.py
 # Author: Jazmin Joseph
 
 HANDOFF_WORDS = ["allerg", "gluten", "dairy", "ingredient"]
 
+SAFE_REPLY = (
+    "I'm not sure how to help with that. I can tell you the price of a menu item."
+)
+
 
 class MenuHelper:
-    def __init__(self, name, instructions, menu_board):
+    def __init__(self, name, instructions, menu_board, model):
         """Set up one helper with its own name, instructions, tool, and history."""
         self.name = name
         self.instructions = instructions
         self.menu_board = menu_board
+        self.model = model
         self.history = []
 
     def respond(self, user_message):
@@ -27,9 +33,14 @@ class MenuHelper:
             return self.price_reply(user_message)
         if "menu" in text:
             return f"Our menu: {self.menu_board.list_items()}"
-        if "hello" in text:
-            return f"Hello! I'm {self.name}. Ask me the price of any item on our menu."
-        return "I'm not sure how to help with that. I can answer questions about the price of menu items."
+        return self.model_reply()
+
+    def model_reply(self):
+        """Ask the model for a reply. Give a safe answer if the model has non."""
+        reply = self.model.reply(self.instructions, self.history)
+        if reply is None:
+            return "Sorry, I cant answer that right now. Please try again in a moment."
+        return reply
 
     def needs_human(self, text):
         """Return true if the message is about something a person must handle."""

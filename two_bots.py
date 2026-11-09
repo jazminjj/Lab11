@@ -2,11 +2,14 @@
 # Author: Jazmin Joseph
 
 from chatbot import SupportChatbot
+from mock_model import MockModel
 from order_tool import OrderLookup
 from stock_tool import StockLookup
 
 order_tool = OrderLookup({"A100": "shipped", "A101": "processing"})
 stock_tool = StockLookup({"rain jacket": 12, "day pack": 0})
+
+model = MockModel()
 
 sunny = SupportChatbot("Sunny", "You are cheerful and brief.", order_tool, stock_tool)
 river = SupportChatbot("River", "You are formal and detailed.", order_tool, stock_tool)

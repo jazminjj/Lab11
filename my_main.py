@@ -3,6 +3,16 @@
 
 from my_assistant import MenuHelper
 from my_tool import MenuBoard
+from ollama_model import OllamaModel
+
+MODEL_NAME = "granite4.1:3b"
+
+INSTRUCTIONS = """You are Mocha, the assistant for Sunrise Cafe.
+Answer in one short sentence.
+We are open 7 am to 3 pm, Monday through Saturday.
+We are located at 120 Main Street and we have free wifi.
+Only state facts that appear in these instructions.
+If you do not know, say you do not know and offer to pass the customer to a human agent."""
 
 MENU = {
     "latte": 4.50,
@@ -13,7 +23,8 @@ MENU = {
 }
 
 menu_board = MenuBoard(MENU)
-bot = MenuHelper("Mocha", "You help customers with menu items and prices.", menu_board)
+model = OllamaModel(MODEL_NAME)
+bot = MenuHelper("Mocha", INSTRUCTIONS, menu_board, model)
 
 print("Type a message, or type quit to stop.")
 user_message = input("You: ")
